@@ -1,0 +1,37 @@
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .pilot-video.video-js{
+          height: fit-content;
+          width: inherit;
+          }
+        .pilot-video.stuck {
+            position: fixed;
+            bottom: -10px;
+            left: -10px;
+            transform: translateY(100%);
+            animation: fade-in-up 0.25s ease forwards;
+        }
+
+.video-js .vjs-big-play-button {
+    left: 40% !important;
+    top: 40% !important;
+    width: 20%;
+    height: 20%;
+       border: none !important; 
+       color:red;
+      box-shadow: none !important; 
+	  /* background-color: rgba(7, 20, 30, 0.7); */
+}
+
+.video-js .vjs-play-control:before {
+    top:20% !important;
+    content: '\f101';
+    font-size: 48px;
+}
