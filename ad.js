@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 function pause(id) {
     var player = videojs(id);
     player.ima.pauseAd();
@@ -85,25 +84,34 @@ Player.prototype.adsManagerLoadedCallback = function () {
 };
 
 Player.prototype.onAdEvent = function (event) {
-
+    console.log("EVENT", event.type );
+    if (event.type == 'start') {
+        pause(this.id);
+        console.log('PAUSED');
+        
+        }      
+    if (event.type == 'pause') {
+        checkScroll();
+    } 
     if (event.type == 'allAdsCompleted') {
-        document.getElementById(this.id).style.visibility = 'hidden';
+        let endingPlay = document.getElementById(this.id);
+        endingPlay.style.visibility = 'hidden';
+        endingPlay.getElementsByClassName('vjs-control-bar')[0].style.visibility = 'hidden';
     }
 };
+
 var obj = document.getElementsByClassName("pilot-player");
+var realHeight=[];
+var realWidth=[];
 for (let index = 0; index < obj.length; index++) {
-    // var videoHeight=[];
-    var realHeight=[];
-    var realWidth=[];
-    //  videoHeight[index] = document.getElementsByClassName('pilot-video')[index].outerWidth;
-     realHeight[index] = document.getElementsByClassName('pilot-player')[index].height;
+    realHeight[index] = document.getElementsByClassName('pilot-player')[index].height;
     realWidth[index] = document.getElementsByClassName('pilot-player')[index].width;
+    // console.log('GET HEIGHT 2', document.getElementsByClassName('pilot-player')[index].height);
     // let someimage = document.getElementById('this_one');
     let id = obj[index].getAttribute('id');
     let vastTag = obj[index].getAttribute("value");
     console.log(id);
     console.log(vastTag);
-    // invokeVideoPlayer(playerId, vastTag, playerVolume);
     console.log('=============================');
     var player1 = new Player(id, vastTag);
     player1.init();
@@ -114,8 +122,8 @@ let count = []
 
 function checkScroll() {
     console.log('ID =', videos[0].getAttribute('id'));
-    if (videos[0].getAttribute('data-view') !== "mobile") {
-        
+    if (videos[0].getAttribute('data-view') !== "mobile_web") {
+
         for (let i = 0; i < videos.length; i++) {
             var playVideo = videos[i];
             let playId = videos[i].getAttribute('id');
@@ -126,7 +134,7 @@ function checkScroll() {
             visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
             visible = visibleX * visibleY / (w * h);
             if (visible > fraction) {
-                if (!(document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && !(document.getElementsByClassName('pilot-video')[i].classList.contains('stuck')) && !(videos[i].getAttribute('id'))) {
+                if (!(document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && !(document.getElementsByClassName('pilot-video')[i].classList.contains('stuck'))) {
                     play(playId);
                     console.log('PLAY');
                 }
@@ -141,17 +149,14 @@ function checkScroll() {
                 document.getElementsByClassName('pilot-video')[i].classList.remove("stuck");
                 document.getElementsByClassName('pilot-player')[i].classList.add("pilot-checker");
             } else {
-                if (!(document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && !(document.getElementsByClassName('pilot-video')[i].classList.contains('stuck')) && !(videos[i].getAttribute('id'))) {
-                    pause(playId);
-                    console.log('PAUSED');
-                }
+               
                 if ((document.getElementById(playId).classList.contains('pilot-checker'))) {
                     let stuckHeight = Math.max(window.innerHeight) / 4 + "px";
                     let stuckWidth = Math.max(window.innerWidth) / 8 + "px";
                     playVideo.style.height = stuckHeight;
-                    playVideo.style.width = stuckWidth;
+                    // playVideo.width = stuckWidth;
                     document.getElementsByClassName('pilot-video')[i].classList.add("stuck");
-                      document.getElementsByClassName('pilot-player')[i].classList.remove("pilot-checker");
+                    document.getElementsByClassName('pilot-player')[i].classList.remove("pilot-checker");
 
                 }
 
@@ -160,5 +165,4 @@ function checkScroll() {
         }
     }
 }
-
 window.addEventListener('scroll', checkScroll, false);

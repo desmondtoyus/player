@@ -7,31 +7,29 @@
                 opacity: 1;
             }
         }
-        .pilot-video.video-js{
-          height: fit-content;
-          width: inherit;
-          }
+
         .pilot-video.stuck {
             position: fixed;
-            bottom: -10px;
-            left: -10px;
+            bottom: 0px;
+            left: 0px;
             transform: translateY(100%);
             animation: fade-in-up 0.25s ease forwards;
         }
 
 .video-js .vjs-big-play-button {
-    left: 40% !important;
-    top: 40% !important;
-    width: 20%;
-    height: 20%;
+    left: 50% !important;
+    top: 50% !important;
+    width: 10%;
+    height: 10%;
        border: none !important; 
        color:red;
+       align-content: center;
       box-shadow: none !important; 
 	  /* background-color: rgba(7, 20, 30, 0.7); */
 }
 
 .video-js .vjs-play-control:before {
-    top:20% !important;
+    top:40% !important;
     content: '\f101';
     font-size: 48px;
 }
