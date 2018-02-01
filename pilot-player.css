@@ -8,13 +8,26 @@
             }
         }
 
-        .pilot-video.stuck {
+        .in_article.stuck {
             position: fixed;
             bottom: 0px;
             left: 0px;
             transform: translateY(100%);
             animation: fade-in-up 0.25s ease forwards;
         }
+
+.slider {
+  position: absolute;	
+  right:-150px;
+  display: none; 
+  bottom:30px;
+}
+
+.in_article_view{
+     transform: translateY(100%);
+            animation: fade-in-up 0.25s ease forwards;
+            display:block;
+}
 
 .video-js .vjs-big-play-button {
     left: 50% !important;
