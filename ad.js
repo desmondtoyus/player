@@ -18,16 +18,16 @@
 
 
 
-function slider() {
+function pilotSlider() {
     let stopPosition = 20;
-    let slidingTotal = document.getElementsByClassName('slider');
+    let slidingTotal = document.getElementsByClassName('pilot-video slider');
     for (let index = 0; index < slidingTotal.length; index++) {
         
-        let slidingDiv = document.getElementsByClassName('slider')[0];
+        let slidingDiv = document.getElementsByClassName('pilot-video slider')[0];
         console.log('POSSITION', slidingDiv.style.right);
         if (parseInt(slidingDiv.style.right) < stopPosition) {
             slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + "px";
-            setTimeout(slider, 1);
+            setTimeout(pilotSlider, 1);
         }  
     }
   
@@ -35,14 +35,17 @@ function slider() {
 
 // SLIDING VIDEO
 window.addEventListener("load", function () {
-    let slidingTotal = document.getElementsByClassName('slider');
+    if (document.getElementsByClassName('pilot-video')[0].classList.contains('slider'))
+    {
+        let slidingTotal = document.getElementsByClassName('pilot-video slider');
     for (let index = 0; index < slidingTotal.length; index++) {
-        document.getElementsByClassName('slider')[index].style.display = 'block';
-        document.getElementsByClassName('slider')[index].style.right = '-350px'
+        document.getElementsByClassName('pilot-video slider')[index].style.display = 'block';
+        document.getElementsByClassName('pilot-video slider')[index].style.right = '-350px'
     // endingPlay.getElementsByClassName('vjs-control-bar')[0].style.visibility = 'hidden';
 console.log('Trying to move');
-    slider();
+        pilotSlider();
     }
+}
 });
 
 
@@ -187,12 +190,19 @@ function checkScroll() {
                     play(playId);
                     console.log('PLAY');
                 }
+
+                if ((!document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && (document.getElementsByClassName('pilot-video')[i].classList.contains('stuck'))) {
+                    count.push(i);
+                    for (let index = 0; index < count.length; index++) {
+                        document.getElementsByClassName('pilot-video')[count[index]].classList.remove("stuck");
+                    }
+                }
                 playVideo.style.height = realHeight[i] + "px";
                 playVideo.style.width = realWidth[i] + "px";
                 document.getElementsByClassName('pilot-player')[i].classList.add("pilot-checker");
-                if (document.getElementsByClassName('pilot-video')[i].classList.contains('stuck')) {
+                if (document.getElementsByClassName('in_article')[i].classList.contains('stuck')) {
                     document.getElementsByClassName('in_article')[i].classList.remove("stuck");
-                    
+                    document.getElementsByClassName('in_article')[i].style.height = realHeight[i] + "px";
                 }
 
             } else {
@@ -213,3 +223,4 @@ function checkScroll() {
     }
 }
 window.addEventListener('scroll', checkScroll, false);
+
