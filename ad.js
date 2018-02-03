@@ -15,6 +15,8 @@
  * 
  *
  */
+
+
 let addclose = document.getElementsByClassName('pilot-video');
 for (let index = 0; index < addclose.length; index++) {
     let closeBtn = document.createElement('div');
@@ -23,7 +25,8 @@ for (let index = 0; index < addclose.length; index++) {
     closeBtn.classList.add('pilot-closeBtn');
     closeBtn.addEventListener("click", function (e) {
         let toClose = e.target.getAttribute("id")
-        document.getElementsByClassName('pilot-video')[toClose].style.display = 'none';
+        // document.getElementsByClassName('pilot-video')[toClose].style.display = 'none';
+        document.getElementById(toClose).parentNode.style.display = 'none';
     });
     // addclose[index].appendChild(closeBtn);
     addclose[index].insertBefore(closeBtn, addclose[index].firstChild)

@@ -8,6 +8,10 @@
             }
         }
 
+
+.pilot-video:hover .pilot-closeBtn{
+  visibility: visible;
+}
        .in_article.stuck {
             position: fixed;
             bottom: 0px;
@@ -26,6 +30,8 @@
 }
 .pilot-closeBtn{
 cursor: pointer;
+visibility: hidden;
+
 }
 
 
