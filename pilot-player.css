@@ -7,30 +7,27 @@
                 opacity: 1;
             }
         }
-        
-        .in_article{
-            height: 0px;
-        }
-.in_article.stuck {
+
+       .in_article.stuck {
             position: fixed;
             bottom: 0px;
             left: 0px;
-             z-index: 3;
             transform: translateY(100%);
             animation: fade-in-up 0.25s ease forwards;
+             z-index: 3;
         }
 
-.slider {
+.pilot-video.slider {
   position: fixed;	
   right:-150px;
   display: none; 
   bottom:0px;
-  z-index: 3;
+   z-index: 3;
+}
+.pilot-closeBtn{
+cursor: pointer;
 }
 
-.in_article{
-display:block;
-}
 
 .video-js .vjs-big-play-button {
     left: 50% !important;

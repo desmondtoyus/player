@@ -15,8 +15,24 @@
  * 
  *
  */
+let addclose = document.getElementsByClassName('pilot-video');
+for (let index = 0; index < addclose.length; index++) {
+    let closeBtn = document.createElement('div');
+    closeBtn.innerHTML ='&#10006;'
+    closeBtn.id=index;
+    closeBtn.classList.add('pilot-closeBtn');
+    closeBtn.addEventListener("click", function (e) {
+        let toClose = e.target.getAttribute("id")
+        document.getElementsByClassName('pilot-video')[toClose].style.display = 'none';
+    });
+    // addclose[index].appendChild(closeBtn);
+    addclose[index].insertBefore(closeBtn, addclose[index].firstChild)
+    
+}
 
-
+// function close(e) {
+  
+// }
 
 function pilotSlider() {
     let stopPosition = 20;
@@ -24,17 +40,16 @@ function pilotSlider() {
     for (let index = 0; index < slidingTotal.length; index++) {
         
         let slidingDiv = document.getElementsByClassName('pilot-video slider')[0];
-        console.log('POSSITION', slidingDiv.style.right);
+        console.log('POSITION', slidingDiv.style.right);
         if (parseInt(slidingDiv.style.right) < stopPosition) {
-            slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + "px";
-            setTimeout(pilotSlider, 1);
+            slidingDiv.style.right = parseInt(slidingDiv.style.right) + 10 + "px";
+            setTimeout(pilotSlider, 0.5);
         }  
     }
   
 }
 
 // SLIDING VIDEO
-window.addEventListener("load", function () {
     if (document.getElementsByClassName('pilot-video')[0].classList.contains('slider'))
     {
         let slidingTotal = document.getElementsByClassName('pilot-video slider');
@@ -46,7 +61,7 @@ console.log('Trying to move');
         pilotSlider();
     }
 }
-});
+
 
 
 function pause(id) {
@@ -58,6 +73,8 @@ function play(id) {
     var player = videojs(id);
     player.ima.resumeAd();
 }
+
+
 
 var Player = function (id, vastTag, inArticle) {
     this.id = id;
@@ -92,6 +109,13 @@ var Player = function (id, vastTag, inArticle) {
             navigator.userAgent.match(/Android/i)) {
             startEvent = 'touchend';
         }
+        player.on('adserror', function () {
+            console.log('Error Occured', id);
+            // document.getElementById(id).style.visibility = 'hidden';
+            // let x = document.getElementById(id).parentElement.nodeName;
+            // document.getElementById("demo").innerHTML = x;
+            document.getElementById(id).parentNode.style.display = 'none';
+        });
 
         player.one(startEvent, function () {
             player.ima.initializeAdDisplayContainer();
@@ -140,11 +164,13 @@ Player.prototype.onAdEvent = function (event) {
         if (this.inArticle == 'in_article'){
             endingPlay.style.display = 'none';
         endingPlay.getElementsByClassName('vjs-control-bar')[0].style.display = 'none';
+            document.getElementsByClassName('pilot-video')[0].style.display = 'none';
     }
   
     else{
             endingPlay.style.visibility = 'hidden';
         endingPlay.getElementsByClassName('vjs-control-bar')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('pilot-video')[0].style.visibility = 'hidden';
         }
     }
 };
@@ -186,11 +212,10 @@ function checkScroll() {
             visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
             visible = visibleX * visibleY / (w * h);
             if (visible > fraction) {
-                if (!(document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && !(playVideo.classList.contains('stuck'))) {
+                if (!(document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && !(playVideo.classList.contains('stuck')) && playId) {
                     play(playId);
                     console.log('PLAY');
                 }
-
                 if ((!document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && (document.getElementsByClassName('pilot-video')[i].classList.contains('stuck'))) {
                     count.push(i);
                     for (let index = 0; index < count.length; index++) {
@@ -200,9 +225,10 @@ function checkScroll() {
                 playVideo.style.height = realHeight[i] + "px";
                 playVideo.style.width = realWidth[i] + "px";
                 document.getElementsByClassName('pilot-player')[i].classList.add("pilot-checker");
-                if (document.getElementsByClassName('in_article')[i].classList.contains('stuck')) {
+                if (document.getElementsByClassName('pilot-video')[i].classList.contains('stuck')) {
                     document.getElementsByClassName('in_article')[i].classList.remove("stuck");
                     document.getElementsByClassName('in_article')[i].style.height = realHeight[i] + "px";
+                    
                 }
 
             } else {
@@ -223,4 +249,3 @@ function checkScroll() {
     }
 }
 window.addEventListener('scroll', checkScroll, false);
-
