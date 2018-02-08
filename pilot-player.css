@@ -7,7 +7,11 @@
                 opacity: 1;
             }
         }
-
+.pilot-closeBtn{
+    display : inline-block;
+    padding: 2px;
+    visibility: visible;
+}
 
 .pilot-video:hover .pilot-closeBtn{
   visibility: visible;
@@ -20,7 +24,14 @@
             animation: fade-in-up 0.25s ease forwards;
              z-index: 3;
         }
-
+.ima-seek-bar-div,
+.ima-play-pause-div,
+.ima-fullscreen-div,
+.ima-mute-div,
+.ima-slider-div
+{
+visibility: hidden;
+         }
 .pilot-video.slider {
   position: fixed;	
   right:-150px;
@@ -34,6 +45,15 @@ visibility: hidden;
 
 }
 
+.vjs-default-skin .vjs-progress-control,
+.vjs-default-skin .vjs-time-controls,
+.vjs-default-skin .vjs-time-divider,
+.vjs-default-skin .vjs-captions-button,
+.vjs-default-skin .vjs-mute-control,
+.vjs-default-skin .vjs-volume-control,
+.vjs-default-skin .vjs-fullscreen-control {
+    display: none !important;
+}
 
 .video-js .vjs-big-play-button {
     left: 50% !important;
