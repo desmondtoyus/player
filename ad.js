@@ -91,7 +91,7 @@ if (document.getElementsByClassName('pilot-video')[0].classList.contains('slider
         document.getElementsByClassName('pilot-video slider')[index].style.display = 'block';
         document.getElementsByClassName('pilot-video slider')[index].style.right = '-350px'
         // endingPlay.getElementsByClassName('vjs-control-bar')[0].style.visibility = 'hidden';
-        console.log('Trying to move');
+        console.log('Trying to move 3');
         pilotSlider();
     }
 }
@@ -189,12 +189,15 @@ Player.prototype.adsManagerLoadedCallback = function () {
 
 Player.prototype.onAdEvent = function (event) {
     let endingPlay = document.getElementById(this.id);
-    console.log("EVENT", event.type);
-    if (event.type == 'start') {
-        pause(this.id);
+    if (event.type=='loaded') {
         if (endingPlay.hasAttribute("muted")) {
             videojs(this.id).ima.getAdsManager().setVolume(0);
         }
+    }
+    console.log("EVENT", event.type);
+    if (event.type == 'start') {
+        pause(this.id);
+      
        console.log('PAUSED');
         if (this.inArticle == 'in_article') {
             endingPlay.getElementsByClassName('vjs-control-bar')[0].style.height = '0px';
