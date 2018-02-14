@@ -10,8 +10,10 @@
 .pilot-closeBtn{
     display : inline-block;
     padding: 2px;
-    visibility: visible;
+    visibility: hidden;
 }
+
+
 
 .pilot-video:hover .pilot-closeBtn{
   visibility: visible;

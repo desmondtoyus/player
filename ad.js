@@ -31,6 +31,7 @@ for (let index = 0; index < addclose.length; index++) {
     closeBtn.addEventListener("click", function (e) {
         // let toClose = e.target.getAttribute("id")
         // document.getElementsByClassName('pilot-video')[toClose].style.display = 'none';
+        videojs(id).ima.getAdsManager().setVolume(0);
         document.getElementById(id).parentNode.style.display = 'none';
     });
 
@@ -191,7 +192,10 @@ Player.prototype.onAdEvent = function (event) {
     console.log("EVENT", event.type);
     if (event.type == 'start') {
         pause(this.id);
-        console.log('PAUSED');
+        if (endingPlay.hasAttribute("muted")) {
+            videojs(this.id).ima.getAdsManager().setVolume(0);
+        }
+       console.log('PAUSED');
         if (this.inArticle == 'in_article') {
             endingPlay.getElementsByClassName('vjs-control-bar')[0].style.height = '0px';
         }
