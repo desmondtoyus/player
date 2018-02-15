@@ -41,6 +41,9 @@ visibility: hidden;
   bottom:0px;
    z-index: 3;
 }
+.pilot-video{
+    visibility: hidden;
+}
 .pilot-closeBtn{
 cursor: pointer;
 visibility: hidden;

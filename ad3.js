@@ -65,28 +65,34 @@ for (let index = 0; index < addclose.length; index++) {
 
 }
 
+// function close(e) {
 
-function pilotSlider(id) {
+// }
+
+function pilotSlider() {
     let stopPosition = 20;
-    if (parseInt(document.getElementById(id).parentNode.style.right) < stopPosition) {
-        document.getElementById(id).parentNode.style.right = parseInt(document.getElementById(id).parentNode.style.right) + 10 + "px";
-        setTimeout(() => {
-            pilotSlider(id)
-        }, 0.5);
+    let slidingTotal = document.getElementsByClassName('pilot-video slider');
+    for (let index = 0; index < slidingTotal.length; index++) {
 
+        let slidingDiv = document.getElementsByClassName('pilot-video slider')[0];
+        console.log('POSITION', slidingDiv.style.right);
+        if (parseInt(slidingDiv.style.right) < stopPosition) {
+            slidingDiv.style.right = parseInt(slidingDiv.style.right) + 10 + "px";
+            setTimeout(pilotSlider, 0.5);
         }
-    console.log('CONTAIN SLIDER==2')
+    }
+
 }
 
-// SLIDING VIDEOconta
-if (document.getElementsByClassName('slider')[0].classList.contains('pilot-video')) {
+// SLIDING VIDEO
+if (document.getElementsByClassName('pilot-video')[0].classList.contains('slider')) {
     let slidingTotal = document.getElementsByClassName('pilot-video slider');
     for (let index = 0; index < slidingTotal.length; index++) {
         document.getElementsByClassName('pilot-video slider')[index].style.display = 'block';
-        document.getElementsByClassName('pilot-video slider')[index].style.right = '-650px'
+        document.getElementsByClassName('pilot-video slider')[index].style.right = '-350px'
         // endingPlay.getElementsByClassName('vjs-control-bar')[0].style.visibility = 'hidden';
         console.log('Trying to move 3');
-        // pilotSlider();
+        pilotSlider();
     }
 }
 
@@ -184,20 +190,12 @@ Player.prototype.adsManagerLoadedCallback = function () {
 Player.prototype.onAdEvent = function (event) {
     let endingPlay = document.getElementById(this.id);
     if (event.type == 'loaded') {
-        endingPlay.parentNode.style.visibility = 'visible';
         if (endingPlay.hasAttribute("muted")) {
             videojs(this.id).ima.getAdsManager().setVolume(0);
         }
-        if (endingPlay.parentNode.classList.contains('slider')) {
-            // endingPlay .parentNode.classList.add('slider2'); 
-            console.log('CONTAIN SLIDER==1')
-            console.log('protopype=', this.id)
-            pilotSlider(this.id);
-        }
-
     }
     console.log("EVENT", event.type);
-    if (event.type == 'start' && !endingPlay.parentNode.classList.contains('slider')) {
+    if (event.type == 'start') {
         pause(this.id);
 
         console.log('PAUSED');
@@ -210,6 +208,8 @@ Player.prototype.onAdEvent = function (event) {
         checkScroll();
     }
     if (event.type == 'allAdsCompleted') {
+
+
         if (this.inArticle == 'in_article') {
             endingPlay.style.display = 'none';
             endingPlay.getElementsByClassName('vjs-control-bar')[0].style.display = 'none';
