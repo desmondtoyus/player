@@ -79,7 +79,8 @@ function pilotSlider(id) {
 }
 
 // SLIDING VIDEOconta
-if (document.getElementsByClassName('slider')[0].classList.contains('pilot-video')) {
+
+if (document.getElementsByClassName('pilot-video')[0].classList.contains('slider')) {
     let slidingTotal = document.getElementsByClassName('pilot-video slider');
     for (let index = 0; index < slidingTotal.length; index++) {
         document.getElementsByClassName('pilot-video slider')[index].style.display = 'block';
@@ -89,6 +90,7 @@ if (document.getElementsByClassName('slider')[0].classList.contains('pilot-video
         // pilotSlider();
     }
 }
+
 
 
 
@@ -250,7 +252,7 @@ let count = []
 
 function checkScroll() {
     // console.log('ID =', videos[0].getAttribute('id'));
-    if (videos[0].getAttribute('data-view') !== "mobile_web") {
+    if (videos[0].getAttribute('data-view') !== "mobile_web" && document.getElementsByClassName("pilot-player")[0]) {
         for (let i = 0; i < videos.length; i++) {
             var playVideo = videos[i];
             let playId = videos[i].getAttribute('id');
