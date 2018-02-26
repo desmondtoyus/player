@@ -18,6 +18,14 @@
 .pilot-video:hover .pilot-closeBtn{
   visibility: visible;
 }
+
+.pilot-video:hover .ima-mute-div {
+   visibility: visible;
+}
+
+.pilot-video:hover .ima-play-pause-div{
+   visibility: visible;
+}
        .in_article.stuck {
             position: fixed;
             bottom: 0px;
@@ -26,7 +34,7 @@
             animation: fade-in-up 0.25s ease forwards;
              z-index: 3;
         }
-.ima-seek-bar-div,
+.ima-countdown-div,
 .ima-play-pause-div,
 .ima-fullscreen-div,
 .ima-mute-div,
@@ -34,6 +42,12 @@
 {
 visibility: hidden;
          }
+
+.ima-play-pause-div,
+.ima-mute-div{
+    display: none;
+}
+
 .pilot-video.slider {
   position: fixed;	
   right:-150px;
