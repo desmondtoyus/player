@@ -34,6 +34,7 @@
             animation: fade-in-up 0.25s ease forwards;
              z-index: 3;
         }
+        
 .ima-countdown-div,
 .ima-play-pause-div,
 .ima-fullscreen-div,
@@ -41,7 +42,7 @@
 .ima-slider-div
 {
 visibility: hidden;
-         }
+ }
 
 .ima-play-pause-div,
 .ima-mute-div{
@@ -55,7 +56,11 @@ visibility: hidden;
   bottom:0px;
    z-index: 3;
 }
+
 .pilot-video{
+    visibility: hidden;
+}
+.pilot-player{
     visibility: hidden;
 }
 .pilot-closeBtn{

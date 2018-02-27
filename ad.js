@@ -149,7 +149,7 @@ var Player = function (id, vastTag, inArticle) {
             startEvent = 'touchend';
         }
         player.on('adserror', function () {
-            console.log('Error Occured', id);
+            console.log('Error Occured at', id);
             // document.getElementById(id).style.visibility = 'hidden';
             // let x = document.getElementById(id).parentElement.nodeName;
             // document.getElementById("demo").innerHTML = x;
@@ -184,11 +184,13 @@ Player.prototype.adsManagerLoadedCallback = function () {
 Player.prototype.onAdEvent = function (event) {
     let endingPlay = document.getElementById(this.id);
     if (event.type == 'loaded') {
-        endingPlay.parentNode.style.visibility = 'visible';
+        
         if (endingPlay.hasAttribute("muted")) {
             videojs(this.id).ima.getAdsManager().setVolume(0);
         }
         if (endingPlay.parentNode.classList.contains('slider')) {
+            endingPlay.parentNode.style.visibility = 'visible';
+            endingPlay.style.visibility = 'visible';
             // endingPlay .parentNode.classList.add('slider2'); 
             console.log('CONTAIN SLIDER==1')
             console.log('protopype=', this.id)
@@ -198,6 +200,8 @@ Player.prototype.onAdEvent = function (event) {
     }
     console.log("EVENT", event.type);
     if (event.type == 'start' && !endingPlay.parentNode.classList.contains('slider')) {
+        endingPlay.parentNode.style.visibility = 'visible';
+        endingPlay.style.visibility = 'visible';
         pause(this.id);
 
         console.log('PAUSED');
