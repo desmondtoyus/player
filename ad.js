@@ -80,7 +80,7 @@ function pilotSlider(id) {
 
 // SLIDING VIDEOconta
 
-if (document.getElementsByClassName('pilot-video')[0].classList.contains('slider')) {
+if (document.getElementsByClassName('slider')) {
     let slidingTotal = document.getElementsByClassName('pilot-video slider');
     for (let index = 0; index < slidingTotal.length; index++) {
         document.getElementsByClassName('pilot-video slider')[index].style.display = 'block';
@@ -265,7 +265,7 @@ function checkScroll() {
             visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
             visible = visibleX * visibleY / (w * h);
             if (visible > fraction) {
-                if (!(document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && !(playVideo.classList.contains('stuck')) && playId) {
+                if (!(document.getElementById(playId).parentNode.classList.contains('pilot-checker')) && !(playVideo.classList.contains('stuck')) && playId) {
                     play(playId);
                     console.log('PLAY');
                 }
@@ -279,17 +279,22 @@ function checkScroll() {
                 playVideo.style.width = realWidth[i] + "px";
                 document.getElementsByClassName('pilot-player')[i].classList.add("pilot-checker");
                 if (document.getElementsByClassName('pilot-video')[i].classList.contains('stuck')) {
-                    document.getElementsByClassName('in_article')[i].classList.remove("stuck");
+                    document.getElementById(playId).parentNode.classList.remove("stuck");
                     document.getElementsByClassName('in_article')[i].style.height = realHeight[i] + "px";
 
                 }
 
             } else {
 
-                if ((document.getElementById(playId).classList.contains('pilot-checker')) && (document.getElementsByClassName('pilot-video')[i].classList.contains('in_article'))) {
-                    document.getElementsByClassName('in_article')[i].classList.add("stuck");
-                    document.getElementsByClassName('pilot-player')[i].classList.remove("pilot-checker");
+                if ((document.getElementById(playId).classList.contains('pilot-checker')) && (document.getElementById(playId).parentNode.classList.contains('in_article'))) {
+                    document.getElementById(playId).parentNode.classList.add("stuck");
+                    document.getElementById(playId).parentNode.classList.remove("pilot-checker");
 
+                }
+                if (document.getElementsByClassName('pilot-video')[i].classList.contains('in_article_fixed')) {
+                    document.getElementById(playId).classList.remove("pilot-checker")
+        
+                    pause(playId);
                 }
 
             }
