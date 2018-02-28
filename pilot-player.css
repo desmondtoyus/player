@@ -37,11 +37,21 @@
         
 .ima-countdown-div,
 .ima-play-pause-div,
-.ima-fullscreen-div,
-.ima-mute-div,
-.ima-slider-div
+.ima-mute-div
 {
 visibility: hidden;
+ }
+.ima-mute-div
+{
+right: 2px;
+ }
+ 
+ .ima-slider-div,
+ .ima-fullscreen-div, 
+ .ima-non-fullscreen{
+     width: 0px;
+     max-width: 0px;
+     min-width: 0px;
  }
 
 .ima-play-pause-div,
