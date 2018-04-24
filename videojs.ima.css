@@ -40,7 +40,7 @@
 
 .ima-controls-div {
   bottom:0px;
-  height: 14px;
+  height: 0px;
   position: absolute;
   overflow: hidden;
   display: none;

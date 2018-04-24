@@ -35,7 +35,8 @@
              z-index: 3;
         }
         
-.ima-countdown-div,
+/* .ima-countdown-div, */
+
 .ima-play-pause-div,
 .ima-mute-div
 {
@@ -43,9 +44,19 @@ visibility: hidden;
  }
 .ima-mute-div
 {
-right: 2px;
+left: 20px;
  }
- 
+
+ .logostyle
+ {
+     position: absolute;
+right: 80px;
+/* 40px */
+width: 20px;
+height: 18px;
+bottom: 4px;
+z-index: 1;
+ }
  .ima-slider-div,
  .ima-fullscreen-div, 
  .ima-non-fullscreen{

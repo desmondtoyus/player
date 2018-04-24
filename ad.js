@@ -15,7 +15,7 @@
  * 
  *
  */
-
+let playList =[];
 
 let addclose = document.getElementsByClassName('pilot-video');
 for (let index = 0; index < addclose.length; index++) {
@@ -148,7 +148,8 @@ var Player = function (id, vastTag, inArticle) {
             id: id,
             adTagUrl: vastTag,
             adsManagerLoadedCallback: this.adsManagerLoadedCallback.bind(this),
-            preload: 'auto'
+            preload: 'auto',
+            adLabel:'Time Remaining'
             // showControlsForJSAds: false
         };
         player.ima(options);
@@ -205,11 +206,39 @@ Player.prototype.adsManagerLoadedCallback = function () {
 
 Player.prototype.onAdEvent = function (event) {
     let endingPlay = document.getElementById(this.id);
+
+    let logoDiv = document.createElement('div');
+    logoDiv.classList.add("logostyle");
+    let logoImg = document.createElement('img');
+    logoImg.src = 'img/CoPilot.png'
+    logoDiv.appendChild(logoImg);
+    // logoDiv.style.right = '4px';
+    // logoDiv.classList.add("logostyle");
+    let controlDiv = this.id + '_ima-controls-div';
+
+    document.getElementById(controlDiv).appendChild(logoDiv);
     if (event.type == 'loaded') {
 
         if (endingPlay.hasAttribute("muted")) {
             videojs(this.id).ima.getAdsManager().setVolume(0);
         }
+    
+
+    }
+    console.log("EVENT", event.type);
+    if (event.type == 'start'){
+        if (!endingPlay.parentNode.classList.contains('slider')) {
+        endingPlay.parentNode.style.visibility = 'visible';
+        endingPlay.parentNode.style.opacity = 0;
+        endingPlay.style.visibility = 'visible';
+        pause(this.id);
+        playList.push(this.id);
+        fadeIn(endingPlay.parentNode);
+        console.log('PAUSED');
+        if (this.inArticle.indexOf('article') >= 0) {
+            endingPlay.getElementsByClassName('vjs-control-bar')[0].style.height = '0px';
+        }
+    }
         if (endingPlay.parentNode.classList.contains('slider')) {
             endingPlay.parentNode.style.visibility = 'visible';
             endingPlay.style.visibility = 'visible';
@@ -218,22 +247,6 @@ Player.prototype.onAdEvent = function (event) {
             console.log('protopype=', this.id)
             pilotSlider(this.id);
         }
-
-    }
-    console.log("EVENT", event.type);
-    if (event.type == 'start' && !endingPlay.parentNode.classList.contains('slider')) {
-        endingPlay.parentNode.style.visibility = 'visible';
-        endingPlay.parentNode.style.opacity = 0;
-        endingPlay.style.visibility = 'visible';
-        pause(this.id);
-
-        fadeIn(endingPlay.parentNode);
-
-        console.log('PAUSED');
-        if (this.inArticle.indexOf('article') >= 0) {
-            endingPlay.getElementsByClassName('vjs-control-bar')[0].style.height = '0px';
-        }
-
     }
     if (event.type == 'pause') {
         checkScroll();
@@ -283,6 +296,7 @@ var videos = document.getElementsByClassName("pilot-player");
 var fraction = 0.6;
 let count = []
 
+
 function checkScroll() {
     // console.log('ID =', videos[0].getAttribute('id'));
     if (videos[0].getAttribute('data-view') !== "mobile_web" && document.getElementsByClassName("pilot-player")[0]) {
@@ -296,35 +310,31 @@ function checkScroll() {
             visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
             visible = visibleX * visibleY / (w * h);
             if (visible > fraction) {
-                if (!(document.getElementById(playId).parentNode.classList.contains('pilot-checker')) && !(playVideo.classList.contains('stuck')) && playId) {
+                let indexOfPlayer = playList.indexOf(playId);
+                if (!(document.getElementById(playId).parentNode.classList.contains('pilot-checker')) && !(playVideo.classList.contains('stuck')) && playId && indexOfPlayer > -1) {
                     play(playId);
+                    playList.splice(indexOfPlayer, 1);
                     console.log('PLAY');
                 }
-                if ((!document.getElementsByClassName('pilot-player')[i].classList.contains('pilot-checker')) && (document.getElementsByClassName('pilot-video')[i].classList.contains('stuck'))) {
-                    count.push(i);
-                    for (let index = 0; index < count.length; index++) {
-                        document.getElementsByClassName('pilot-video')[count[index]].classList.remove("stuck");
-                    }
+                if ((!document.getElementById(playId).classList.contains('pilot-checker')) && (document.getElementById(playId).parentNode.classList.contains ('stuck'))) {
+                    document.getElementById(playId).parentNode.classList.remove('stuck')
                 }
-                playVideo.style.height = realHeight[i] + "px";
+                playVideo.style.height = realHeight[i]+ "px";
                 playVideo.style.width = realWidth[i] + "px";
                 document.getElementById(playId).classList.add("pilot-checker");
                 if (document.getElementsByClassName('pilot-video')[i].classList.contains('stuck')) {
                     document.getElementById(playId).parentNode.classList.remove("stuck");
                     document.getElementsByClassName('in_article')[i].style.height = realHeight[i] + "px";
-
                 }
 
             } else {
-
+                playList.push(playId);
                 if ((document.getElementById(playId).classList.contains('pilot-checker')) && (document.getElementById(playId).parentNode.classList.contains('in_article'))) {
                     document.getElementById(playId).parentNode.classList.add("stuck");
                     document.getElementById(playId).parentNode.classList.remove("pilot-checker");
-
                 }
-                if (document.getElementsByClassName('pilot-video')[i].classList.contains('in_article_fixed') || document.getElementsByClassName('pilot-video')[i].classList.contains('standard')) {
-                    document.getElementById(playId).classList.remove("pilot-checker")
-
+                if (document.getElementById(playId).classList.contains('in_article_fixed') || document.getElementById(playId).classList.contains('standard')) {
+                    document.getElementById(playId).classList.remove("pilot-checker");
                     pause(playId);
                 }
 
